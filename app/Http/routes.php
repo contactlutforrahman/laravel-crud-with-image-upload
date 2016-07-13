@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'StudentController@create');
+Route::post('/student/save', 'StudentController@store');

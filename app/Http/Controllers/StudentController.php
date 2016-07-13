@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use Illuminate\Http\Request;
-
+use Validator;
+use Session;
 use App\Http\Requests;
 
 class StudentController extends Controller
@@ -36,7 +38,31 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules=[
+            'student_id'=>['required', 'unique:students,student_id']
+        ];
+
+        $messages = array(
+            'student_id.unique' => $request->input('student_id') . ' already exists!',
+        );
+
+        $valid = Validator::make($request->input(), $rules, $messages);
+
+        if($valid->fails()){
+            return redirect()->back()
+                ->withErrors($valid)
+                ->withInput();
+        } else {
+            $student = new Student();
+            $student->student_id = $request->input('student_id');
+            $student->student_roll = $request->input('student_roll');
+            $student->student_name = $request->input('student_name');
+            $student->department_name = $request->input('department_name');
+            if($student->save()){
+                Session::flash('flash_message', 'Student information is stored successfully!');
+                return redirect()->back();
+            }
+        }
     }
 
     /**
