@@ -15,7 +15,7 @@
     <div class="row">
 
         @if(Session::has('deleted_message'))
-            <div class="alert alert-success">
+            <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 {{ Session::get('deleted_message') }}
             </div>
@@ -60,7 +60,7 @@
                                 {{ $student->department_name }}
                             </td>
                             <td>
-                                <a href="{{ URL::to('/student/show/'.$student->id) }}"> Details </a> &nbsp; <a href="{{ URL::to('/student/edit/'.$student->id) }}"> Edit </a> &nbsp; <a href="{{ URL::to('') }}"> Delete </a>
+                                <a href="{{ URL::to('/student/show/'.$student->id) }}"> Details </a> &nbsp; <a href="{{ URL::to('/student/edit/'.$student->id) }}"> Edit </a> &nbsp; <a href="{{ URL::to('/student/delete/'.$student->id) }}" onclick="return checkDelete();"> Delete </a>
                             </td>
                         </tr>
                     @endforeach
@@ -75,5 +75,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{{ URL::to('bootstrap/js/bootstrap.min.js') }}"></script>
+
+<script type="text/javascript">
+
+    function checkDelete(){
+        var $chk = confirm('Are You Sure You Want To Delete This?');
+        if ($chk) {
+            return true;
+        } else{
+            return false;
+        }
+    }
+</script>
 </body>
 </html>

@@ -86,7 +86,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = Student::find($id);
+        return view('edit', compact('student'));
     }
 
     /**
@@ -98,7 +99,15 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $student = Student::find($id);
+        $student->student_id = $request->input('student_id');
+        $student->student_roll = $request->input('student_roll');
+        $student->student_name = $request->input('student_name');
+        $student->department_name = $request->input('department_name');
+        if($student->save()){
+            Session::flash('flash_message', 'Student information is updated successfully!');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -109,6 +118,9 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Student::destroy($id)){
+            Session::flash('deleted_message', 'Student information is deleted successfully!');
+            return redirect()->back();
+        }
     }
 }
