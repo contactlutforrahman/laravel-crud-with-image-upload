@@ -13,3 +13,5 @@
 
 Route::get('/', 'StudentController@create');
 Route::post('/student/save', 'StudentController@store');
+Route::get('/student/all', 'StudentController@index');
+Route::get('/student/show/{id}', 'StudentController@show');
