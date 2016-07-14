@@ -59,6 +59,17 @@ class StudentController extends Controller
             $student->student_roll = $request->input('student_roll');
             $student->student_name = $request->input('student_name');
             $student->department_name = $request->input('department_name');
+
+            $file = $request->file('student_photo');
+
+            if($file != ""){
+				$ext = $file->getClientOriginalExtension();
+				$fileName = rand(10000, 50000) . '.' .$ext;
+				$student->student_photo = '/uploads/' . $fileName;
+				$file->move(base_path().'/public/uploads', $fileName);
+			}
+
+
             if($student->save()){
                 Session::flash('flash_message', 'Student information is stored successfully!');
                 return redirect()->back();
@@ -104,6 +115,13 @@ class StudentController extends Controller
         $student->student_roll = $request->input('student_roll');
         $student->student_name = $request->input('student_name');
         $student->department_name = $request->input('department_name');
+        $file = $request->file('student_photo');
+        if($file != ""){
+            $ext = $file->getClientOriginalExtension();
+            $fileName = rand(10000, 50000) . '.' .$ext;
+            $student->student_photo = '/uploads/' . $fileName;
+            $file->move(base_path().'/public/uploads', $fileName);
+        }
         if($student->save()){
             Session::flash('flash_message', 'Student information is updated successfully!');
             return redirect()->back();
