@@ -8,7 +8,8 @@ You will find a docs.zip file in docs directory. Unzip file the docs.zip file an
 
 ## I have created all 8 branches.
 
-0. master.
+0. master
+
    i. Here you will get full documentation of how develop a CRUD Application with image upload and resize using Laravel 5.2, Bootstrap and jQuery
    ii. Full codes.
 
