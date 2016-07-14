@@ -6,6 +6,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Validator;
 use Session;
+use Image;
 use App\Http\Requests;
 
 class StudentController extends Controller
@@ -63,11 +64,13 @@ class StudentController extends Controller
             $file = $request->file('student_photo');
 
             if($file != ""){
-				$ext = $file->getClientOriginalExtension();
-				$fileName = rand(10000, 50000) . '.' .$ext;
-				$student->student_photo = '/uploads/' . $fileName;
-				$file->move(base_path().'/public/uploads', $fileName);
-			}
+                $ext = $file->getClientOriginalExtension();
+                $fileName = rand(10000, 50000) . '.' .$ext;
+                $image = Image::make($request->file('student_photo'));
+                $image->resize(120, 120);
+                $student->student_photo = '/uploads/' . $fileName;
+                $image->save(base_path().'/public/uploads/'. $fileName);
+            }
 
 
             if($student->save()){
