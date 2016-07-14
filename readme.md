@@ -2,7 +2,11 @@
 
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
-I have created all 8 branches.
+## You will find the documentation in docs directory.
+
+You will find a docs.zip file in docs directory. Unzip file the docs.zip file and you will full documentation in a .rtf file.
+
+## I have created all 8 branches.
 
 0. master.
    i. Here you will get full documentation of how develop a CRUD Application with image upload and resize using Laravel 5.2, Bootstrap and jQuery
