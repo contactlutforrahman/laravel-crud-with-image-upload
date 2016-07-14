@@ -18,6 +18,7 @@ class CreateStudentsTable extends Migration
             $table->string('student_roll', 30);
             $table->string('student_name')->nulllable();
             $table->string('department_name', 60);
+            $table->string('student_photo', 120)->nullable();
             $table->timestamps();
         });
     }

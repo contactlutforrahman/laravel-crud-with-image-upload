@@ -6,6 +6,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Validator;
 use Session;
+use Image;
 use App\Http\Requests;
 
 class StudentController extends Controller
@@ -59,6 +60,21 @@ class StudentController extends Controller
             $student->student_roll = $request->input('student_roll');
             $student->student_name = $request->input('student_name');
             $student->department_name = $request->input('department_name');
+
+            $file = $request->file('student_photo');
+
+            if($file != ""){
+                $ext = $file->getClientOriginalExtension();
+                $fileName = rand(10000, 50000) . '.' .$ext;
+                $image = Image::make($request->file('student_photo'));
+                $image->resize(120, 120);
+                $student->student_photo = '/uploads/' . $fileName;
+                $image->save(base_path().'/public/uploads/'. $fileName);
+				//$path = public_path('uploads/' . $fileName);
+				//Image::make($file->getRealPath())->resize(120, 120)->save($path);
+            }
+
+
             if($student->save()){
                 Session::flash('flash_message', 'Student information is stored successfully!');
                 return redirect()->back();
@@ -104,6 +120,13 @@ class StudentController extends Controller
         $student->student_roll = $request->input('student_roll');
         $student->student_name = $request->input('student_name');
         $student->department_name = $request->input('department_name');
+        $file = $request->file('student_photo');
+        if($file != ""){
+            $ext = $file->getClientOriginalExtension();
+            $fileName = rand(10000, 50000) . '.' .$ext;
+            $student->student_photo = '/uploads/' . $fileName;
+            $file->move(base_path().'/public/uploads', $fileName);
+        }
         if($student->save()){
             Session::flash('flash_message', 'Student information is updated successfully!');
             return redirect()->back();
